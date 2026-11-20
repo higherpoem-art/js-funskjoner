@@ -85,7 +85,7 @@ console.log(antallUnderNull())
 function storste(tall) {
     let høyeste = temperaturer[0]
   for (i = 1; i<temperaturer.length; i++) {
-    if (temperaturer[i]>temperaturer[i-1]) {
+    if (temperaturer[i]>høyeste) {
         høyeste = temperaturer[i]
     }
   }
@@ -93,19 +93,39 @@ function storste(tall) {
 }
 
 console.log(storste())
+
 // Oppgave 8: Returner en NY array med bare kuldegradene (tall under 0).
 //     Den opprinnelige arrayen skal ikke endres.
 function bareKuldegrader(tall) {
-  // LØSNING
+  const kuldegrader = []
+  for (i = 0; i<temperaturer.length; i++) {
+    if (temperaturer[i] < 0) {
+      kuldegrader.push(temperaturer[i])
+      console.log(kuldegrader)
+    }
+  }
+  return(kuldegrader)
 }
+
+console.log(bareKuldegrader())
 
 // Oppgave 9: Sorter tallene fra lavest til høyest – UTEN .sort().
 //     Lag din egen sorteringsalgoritme (f.eks. boblesortering).
 //     Returner en NY array, ikke endre den opprinnelige.
 function sorterStigende(tall) {
-  // LØSNING
+  const sortert_temperaturer = temperaturer
+  while (true) {
+    for (i=0; i<sortert_temperaturer.length;i++){
+      if (sortert_temperaturer[i]>sortert_temperaturer[i+1])
+       [sortert_temperaturer[i], sortert_temperaturer[i+1]] = [sortert_temperaturer[i+1], sortert_temperaturer[i]]
+    }
+  }
+  return(sortert_temperaturer)
 }
+//[array[indexFrom], array[indexTo]] = [array[indexTo], array[indexFrom]]; 
 
+console.log(sorterStigende())
+console.log(temperaturer)
 
 // #####################################################
 // DEL 2: SPILL (oppgave 10–14)
