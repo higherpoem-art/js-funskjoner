@@ -10,6 +10,7 @@
 // Der det ikke er oppgitt variabel, lager du egen. Eks temperatur. 
 // =====================================================
 
+
 // #####################################################
 // DEL 1: VÆRAPPEN (oppgave 1–9)
 // #####################################################
@@ -113,11 +114,15 @@ console.log(bareKuldegrader())
 //     Lag din egen sorteringsalgoritme (f.eks. boblesortering).
 //     Returner en NY array, ikke endre den opprinnelige.
 function sorterStigende(tall) {
-  const sortert_temperaturer = temperaturer
-  while (true) {
+  const sortert_temperaturer = temperaturer.slice()
+  let sortert = false
+  while (sortert==false) {
+    sortert = true
     for (i=0; i<sortert_temperaturer.length;i++){
-      if (sortert_temperaturer[i]>sortert_temperaturer[i+1])
-       [sortert_temperaturer[i], sortert_temperaturer[i+1]] = [sortert_temperaturer[i+1], sortert_temperaturer[i]]
+      if (sortert_temperaturer[i]>sortert_temperaturer[i+1]) {
+        [sortert_temperaturer[i], sortert_temperaturer[i+1]] = [sortert_temperaturer[i+1], sortert_temperaturer[i]]
+        sortert = false
+      }
     }
   }
   return(sortert_temperaturer)
@@ -141,17 +146,25 @@ const runder = [120, 85, 140, 95, 110];
 // skal inkluderes i brukernavnet. Vi får da: Gamertag = navn + tall.
 //     lagGamertag("Ola", 99) -> "Ola99"
 function lagGamertag(navn, tall) {
-  // LØSNING
+  return(`${navn}${tall}`)
 }
 
+console.log(lagGamertag("Ola", 99))
 
 // Oppgave 11: Er spilleren gammel nok til spillet? Returner true eller false.
 //     erGammelNok(16, 18) -> false
 //     erGammelNok(18, 18) -> true
 //     Tips: return alder >= grense;  (sammenligningen gir true/false)
 function erGammelNok(alder, grense) {
-  // LØSNING
+  if (alder >= grense) {
+    return true
+  } else{
+    return false
+  }
 }
+
+console.log(erGammelNok(16, 18))
+console.log(erGammelNok(18, 18))
 
 // Oppgave 12: BreiLAN innfører billettpriser. VG1 betaler 100 kr og resten av skolen 150 kr.
 //     Lag en funksjon som sjekker om eleven går på VG1 og gir riktig pris.
@@ -159,10 +172,14 @@ function erGammelNok(alder, grense) {
 //     billettpris(false) -> 150
 //     Tips: bruk if og else.
 function billettpris(erVG1) {
-  // LØSNING
+  if (erVG1 === true) {
+    return (100)
+  } else {
+    return (150)
+  }
 }
 
-
+console.log(billettpris(true))
 // ---------- GUL ----------
 
 // Oppgave 13: Blizzard ønsker at fraksjonene fordeles likt så mulig for å unngå at en fraksjon tar overhånd,
@@ -235,9 +252,10 @@ const resultater = [
 //     kanDelta(16, "GTA 6")    -> false
 //     kanDelta(16, "Fortnite") -> true
 function kanDelta(alder, spill) {
-  // LØSNING
+  return(erGammelNok(alder, aldersgrenser[spill]))
 }
 
+console.log(kanDelta(16, "Fortnite"))
 
 // ---------- GUL ----------
 
@@ -245,9 +263,14 @@ function kanDelta(alder, spill) {
 //     Gjenbruk billettpris() fra oppgave 12! deltakere[i].vg1 er true eller false.
 //     totalInntekt(deltakere) -> 700
 function totalInntekt(deltakere) {
-  // LØSNING
+  let totalInntekt = 0
+  for (i = 0; i < deltakere.length; i ++) {
+    totalInntekt=totalInntekt+billettpris(deltakere[i].vg1)
+  }
+  return totalInntekt
 }
 
+console.log(totalInntekt(deltakere))
 
 // ---------- RØD ----------
 
@@ -256,7 +279,7 @@ function totalInntekt(deltakere) {
 //     UTEN .sort(). Arrayen resultater skal ikke endres.
 //     toppTre(resultater) -> ["Kari", "Jonas", "Ali"]
 function toppTre(resultater) {
-  // LØSNING
+  
 }
 
 
@@ -270,4 +293,15 @@ function toppTre(resultater) {
 // Skriv en kort egenvurdering av arbeidet ditt. Skriv rett etter kolonet.
 // Dette fikk jeg godt til:
 // Dette var vanskelig:
+// Dette vil jeg øve mer på:
+
+
+
+
+
+
+
+
+
+
 // Dette vil jeg øve mer på:
