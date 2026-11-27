@@ -50,71 +50,71 @@ function celsiusTilFahrenheit(celsius) {
 //     Returner summen av alle tallene i en array. Bruk en for-løkke.
 function sum(tall) {
     let sum = 0;
-    for (i = 0; i<temperaturer.length; i++){
-      sum = sum + temperaturer[i]
+    for (i = 0; i<tall.length; i++){
+      sum = sum + tall[i]
     }
     return (sum)
 }
-console.log(sum())
+console.log(sum(temperaturer))
 
 // Oppgave 5: Returner gjennomsnittet av tallene. Gjenbruk sum()!
 function gjennomsnitt(tall) {
-  return(sum()/temperaturer.length)
+  return(sum(tall)/tall.length)
 }
 
-console.log(gjennomsnitt())
+console.log(gjennomsnitt(temperaturer))
 
 
 // Oppgave 6: Hvor mange dager med kuldegrader var det? (Trenger du vinterdekk?)
 //     Returner HVOR MANGE tall som er under 0. Bruk for-løkke + if.
 function antallUnderNull(tall) {
     let sum = 0
-  for (i = 0; i<temperaturer.length; i++) {
-    if (temperaturer[i] < 0) {
+  for (i = 0; i<tall.length; i++) {
+    if (tall[i] < 0) {
         sum = sum + 1 
     }
   }
   return(sum)
 }
 
-console.log(antallUnderNull())
+console.log(antallUnderNull(temperaturer))
 
 // ---------- RØD ----------
 
 // Oppgave 7: Hva var den varmeste dagen? Samme logikk som en highscore-liste.
 //     Returner det største tallet i arrayen – UTEN Math.max og UTEN .sort()
 function storste(tall) {
-    let høyeste = temperaturer[0]
-  for (i = 1; i<temperaturer.length; i++) {
-    if (temperaturer[i]>høyeste) {
-        høyeste = temperaturer[i]
+    let høyeste = tall[0]
+  for (i = 1; i<tall.length; i++) {
+    if (tall[i]>høyeste) {
+        høyeste = tall[i]
     }
   }
   return(høyeste)
 }
 
-console.log(storste())
+console.log(storste(temperaturer))
 
 // Oppgave 8: Returner en NY array med bare kuldegradene (tall under 0).
 //     Den opprinnelige arrayen skal ikke endres.
 function bareKuldegrader(tall) {
   const kuldegrader = []
-  for (i = 0; i<temperaturer.length; i++) {
-    if (temperaturer[i] < 0) {
-      kuldegrader.push(temperaturer[i])
+  for (i = 0; i<tall.length; i++) {
+    if (tall[i] < 0) {
+      kuldegrader.push(tall[i])
       console.log(kuldegrader)
     }
   }
   return(kuldegrader)
 }
 
-console.log(bareKuldegrader())
+console.log(bareKuldegrader(temperaturer))
 
 // Oppgave 9: Sorter tallene fra lavest til høyest – UTEN .sort().
 //     Lag din egen sorteringsalgoritme (f.eks. boblesortering).
 //     Returner en NY array, ikke endre den opprinnelige.
 function sorterStigende(tall) {
-  const sortert_temperaturer = temperaturer.slice()
+  const sortert_temperaturer = tall.slice()
   let sortert = false
   while (sortert==false) {
     sortert = true
@@ -129,7 +129,7 @@ function sorterStigende(tall) {
 }
 //[array[indexFrom], array[indexTo]] = [array[indexTo], array[indexFrom]]; 
 
-console.log(sorterStigende())
+console.log(sorterStigende(temperaturer))
 console.log(temperaturer)
 
 // #####################################################
@@ -193,15 +193,30 @@ console.log(billettpris(true))
 //
 //     Tips: andel = antall i valgt fraksjon / totalt * 100
 function velgFraksjon(alliance, horde, valg) {
-  // LØSNING
+  if (valg = "Horde"){
+    let andel = horde/(horde+alliance) * 100
+    if (andel > 50){
+      return("The faction is currently unavailable on this ruleset due to population imbalance")
+    }
+    else {
+      return("Welcome to the Horde!")
+    }
+  }
+  else if (valg = "Alliance"){
+    let andel = horde/(horde+alliance) * 100
+    if (andel > 50){
+      return("The faction is currently unavailable on this ruleset due to population imbalance")
+    }
+    else {
+      return("Welcome to the Alliance!")
+    }
+  }
+  else {
+    return ("This is not a faction")
+  }
 }
 
-// Oppgave 14: Hvor mange runder fikk laget MER enn grensen?
-//     antallOver(runder, 100) -> 3
-//     Tips: samme oppskrift som antallUnderNull() i oppgave 6.
-function antallOver(poeng, grense) {
-  // LØSNING
-}
+console.log(velgFraksjon(5000, 5000, "Horde"))
 
 
 // #####################################################
@@ -279,10 +294,30 @@ console.log(totalInntekt(deltakere))
 //     UTEN .sort(). Arrayen resultater skal ikke endres.
 //     toppTre(resultater) -> ["Kari", "Jonas", "Ali"]
 function toppTre(resultater) {
-  
+  let sortert = false
+  let toppTre = resultater.slice()
+  while (sortert==false) {
+    sortert = true
+    for (i=0; i<toppTre.length-1;i++){
+      if (toppTre[i].poeng<toppTre[i+1].poeng) {
+        [toppTre[i+1].poeng, toppTre[i].poeng] = [toppTre[i].poeng, toppTre[i+1].poeng] 
+        sortert = false
+      }
+    }
+  }
+  for (i=0; i<toppTre.length;i++){
+    if (i>2){
+      const index = toppTre.indexOf(i);
+      if (index > -1) {
+        array.splice(index, 1);
+      }
+    }
+  }
+  toppTre = toppTre.slice(0,3)
+  return toppTre.map(spiller => spiller.navn);
 }
 
-
+console.log(toppTre(resultater))
 
 
 
@@ -291,17 +326,6 @@ function toppTre(resultater) {
 // #####################################################
 //
 // Skriv en kort egenvurdering av arbeidet ditt. Skriv rett etter kolonet.
-// Dette fikk jeg godt til:
-// Dette var vanskelig:
-// Dette vil jeg øve mer på:
-
-
-
-
-
-
-
-
-
-
-// Dette vil jeg øve mer på:
+// Dette fikk jeg godt til: jeg synes jeg fikk det meste gankse bra til
+// Dette var vanskelig: det var noen av oppgavene som var lit utfordrene å forstå hva de ba om
+// Dette vil jeg øve mer på: jeg synes det var litt interesant å sortere. så det kunne jeg tenke meg å gjøre mer av
